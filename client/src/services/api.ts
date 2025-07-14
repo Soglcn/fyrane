@@ -22,3 +22,12 @@ export const getMessageFromCore = async () => {
   }
 };
 
+export const loginUser = async (loginData: any) => {
+  try {
+    const response = await apiClient.post('/api/login', loginData); 
+    return response.data; 
+  } catch (error: any) {
+    console.error('Login error:', error.response ? error.response.data : error.message);
+    throw error.response ? error.response.data : { message: 'Network error or unknown issue' }; 
+  }
+};
