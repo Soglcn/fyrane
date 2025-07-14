@@ -1,7 +1,3 @@
-// GODMIN buradan API'yı kontrol ediyo biçeeez ⚡️
-// This component periodically checks the health of the Core server (Fyrane API).
-// It updates the status UI and the browser tab title with connection info.
-
 import React, { useState, useEffect, useRef } from 'react';
 import { getMessageFromCore } from '../services/api';
 import axios from 'axios';

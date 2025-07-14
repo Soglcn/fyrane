@@ -2,60 +2,72 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 interface UserInfo {
     username: string;
     role: string;
     companyId: string;
     fullname: string;
     email: string;
-
 }
 
 function Dashboard() {
     const navigate = useNavigate();
-    const [user, setUser] = useState<UserInfo | null>(null); 
+    const [user, setUser] = useState<UserInfo | null>(null);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             try {
-                setUser(JSON.parse(storedUser));
+                const parsedUser: UserInfo = JSON.parse(storedUser);
+                setUser(parsedUser);
+
+                if (parsedUser.fullname) {
+                    document.title = `${parsedUser.fullname}'s Dashboard`;
+                } else {
+                    document.title = `FyraneCloud - Dashboard`;
+                }
+
             } catch (e) {
                 console.error("Failed to parse user from localStorage", e);
-                handleLogout(); 
+                handleLogout();
             }
         } else {
             navigate('/');
+            document.title = `FyraneCloud - Login`;
         }
-    }, [navigate]); 
+    }, [navigate]);
 
     const handleLogout = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('isAuthenticated');
-        setUser(null); 
-        navigate('/Login'); 
+        setUser(null);
+        document.title = `FyraneCloud - Login`;
+        navigate('/');
     };
 
     if (!user) {
         return <div className="loading-screen">Loading user data...</div>;
     }
 
-
     const userRole = user.role;
 
     return (
         <div className="dashboard-container">
-            {userRole === 'godmin' ? (
-                <h1>Merhaba Godmin!</h1>
-            ) : (
-                <h1>Merhaba Pleb!</h1>
+            {userRole === 'godmin' && (
+                <div className="godmin-specific-content">
+                    <h3>Godmin Özel Bölümü</h3>
+                    <p>Sistem yönetimi ve ana kontroller burada yer alır.</p>
+                </div>
             )}
-            
-            <p>Giriş yapan kullanıcı: {user.username}</p>
-            <p>Rolün: {userRole.toUpperCase()}</p>
 
-            <button onClick={handleLogout} className="logout-button">Logout</button>
+            {userRole === 'manager' && (
+                <div className="manager-specific-content">
+                    <h3>Yöneticiye Özel Bölüm</h3>
+                    <p>Burada yöneticilere özel bilgiler veya araçlar gösterilebilir.</p>
+                </div>
+            )}
+
+            <button onClick={handleLogout} className="cust-button">Logout</button>
         </div>
     );
 }
