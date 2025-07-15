@@ -65,7 +65,7 @@
 
 .core-table .label {
     font-weight: bold;
-    width: 180px;
+    width: 95px;
     color: var(--text-dark);
 }
 
@@ -93,7 +93,7 @@
 
 /* Global */
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', sans-serif;
     background-color: var(--bg-light);
     color: var(--text-dark);
     margin: 0;
@@ -119,20 +119,32 @@ body {
 .cust-button {
     text-decoration: none;
     font-weight: lighter;
-    background-color: var(--btn-bg);
+    background: linear-gradient(
+      135deg,
+      var(--of-blue) 0%,
+      var(--of-darkblue) 25%,
+      var(--of-purple) 50%,
+      var(--of-orange) 75%,
+      var(--of-red) 100%
+    );
+    background-size: 200% 200%;
+    background-position: 0% 50%;
     color: var(--text-light);
     text-align: center;
     margin-top: 15px;
-    padding: 10px 45px 10px 45px;
+    padding: 10px 45px;
     border: none;
     border-radius: 50px;
-    transition: all 0.5s ease;
-}
-
-.cust-button:hover {
-    background-color: var(--btn-bg-hover);
-}
-
+    transition: all 0.5s ease, background-position 0.8s ease;
+    cursor: pointer;
+  }
+  
+  .cust-button:hover {
+    background-position: 50% 5%;
+    filter: brightness(1.2);
+    transform: scale(1.01);
+  }
+  
 #cust-container {
     background-color: var(--panel-light);
     padding: 5% 0 5% 0;
@@ -313,13 +325,41 @@ body {
     height: 100vh;
     margin: 0;
     overflow: hidden;
-}
+  
+    background: linear-gradient(
+      135deg,
+      var(--of-blue) 0%,
+      var(--of-darkblue) 25%,
+      var(--of-purple) 50%,
+      var(--of-orange) 75%,
+      var(--of-red) 100%
+    );
+    background-size: 250% 250%;
+    animation: grandientFlow 5s ease infinite;
+  }
+
+  @keyframes grandientFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
 
 .dash-content {
-    margin-left: 10%;
-    margin-top: 10vh;
-    height: auto;
-    width: 80%;
+    background-color: var(--bg-light);
+    margin-left: 15vw;
+    padding-top: 15vh;
+    padding-left: 5vw;
+    height: 100vh;
+    width: 85vw;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
 }
 
 .gr-day {
@@ -351,7 +391,7 @@ body {
 
 .disk-usage-bar {
   display: flex;
-  height: 25px;
+  height: 15px;
   border-radius: 8px;
   overflow: hidden;
   background-color: var(--line-light);
@@ -370,9 +410,17 @@ body {
 }
 
 .disk-area{
-    font-size: 12pt;
+    font-size: 10pt;
 }
 
 .disk-area span{
     font-weight: bold;
+}
+
+#logoutbtn{
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    left: 0;
+    background: none;
 }

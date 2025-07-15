@@ -110,7 +110,7 @@ function Dashboard() {
                 )
             }
 
-            <button onClick={handleLogout} className="cust-button">Logout</button>
+            <button onClick={handleLogout} className="cust-button" id='logoutbtn'>Logout</button>
             <div className='rigelArea'><img src={RigelcoreLogo} alt="FyraneCloud Logo" className="dashLogo" /></div>
 
         </div >

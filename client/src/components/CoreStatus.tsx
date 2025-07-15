@@ -48,7 +48,7 @@ function CoreTest() {
             console.error('Error fetching data from Core API:', err);
 
             if (axios.isAxiosError(err) && err.response) {
-                setError(`Failed to fetch data: ${err.message}`);
+                setError(`Failed: ${err.message}`);
                 setHttpStatusCode(err.response.status);
             } else {
                 setError(`${err.message}.`);
@@ -80,7 +80,7 @@ function CoreTest() {
             };
             const dayOfWeek = new Intl.DateTimeFormat('en-US', dayOfWeekOptions).format(now);
 
-            setLastCheckDateTime(`${formattedTime} on ${formattedDate} - ${dayOfWeek}`);
+            setLastCheckDateTime(`${formattedTime} on ${formattedDate}`);
             setCountdown(Math.floor(refreshInterval / 1000));
         }
     };
@@ -124,7 +124,7 @@ function CoreTest() {
 
     // Visual class and label based on status
     const statusClass = error ? 'cust-core-status-error' : 'cust-core-status-success';
-    const statusText = error ? '🔴 - Connection Failed: ' : '🟢 - Succeeded: ';
+    const statusText = error ? '🔴 - ' : '🟢 - ';
 
     return (
         <div className={`cust-core-status-box ${statusClass}`}>
@@ -140,16 +140,16 @@ function CoreTest() {
                         <td>{endpoint}</td>
                     </tr>
                     <tr>
-                        <td className="label">Last Checked At:</td>
+                        <td className="label">Last Check:</td>
                         <td>{lastCheckDateTime}</td>
                     </tr>
-                    {httpStatusCode && (
+                    { /* {httpStatusCode && (
                         <tr>
                             <td className="label">HTTP Status:</td>
                             <td>{httpStatusCode} {httpStatusCode === 200 ? '(OK)' : ''}</td>
                         </tr>
                     )}
-                    { /*responseTime !== null && (
+                    responseTime !== null && (
                         <tr>
                             <td className="label">Response Time:</td>
                             <td>{responseTime} ms</td>

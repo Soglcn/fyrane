@@ -1,9 +1,7 @@
-// Fyrane/client/src/services/api.ts
 import axios from 'axios';
 
 const API_BASE_URL = 'http://127.0.0.1:5000'; // Core 
 
-// Axios 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -32,8 +30,13 @@ export const loginUser = async (loginData: any) => {
   }
 };
 
+// Yeni endpoint’e göre güncellenmiş disk istatistikleri fonksiyonu
 export const getDiskTotalStats = async () => {
-  const response = await fetch('http://127.0.0.1:5000/api/system/disks/total');
-  if (!response.ok) throw new Error('Failed to fetch disk total stats');
-  return response.json();
+  try {
+    const response = await apiClient.get('/api/system/disks');  // Burayı /disks olarak değiştirdik
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch disk total stats:', error);
+    throw error;
+  }
 };

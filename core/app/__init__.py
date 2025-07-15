@@ -34,6 +34,6 @@ def create_app():
 
     @app.route('/api/data')
     def get_data():
-        return jsonify({"message": "Coreside status: 'Running'", "status": "success"})
+        return jsonify({"message": "API Running", "status": "success"})
 
     return app

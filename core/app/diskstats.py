@@ -1,54 +1,40 @@
-import psutil
+import os
 from flask import Blueprint, jsonify
 
 system_bp = Blueprint('system', __name__)
 
+MAX_DISK_CAPACITY_BYTES = 0.01 * 1024 ** 4  # 5 TB
+
+def get_folder_size(path: str) -> int:
+    total_size = 0
+    if not os.path.exists(path):
+        print(f"Uyarı: Klasör yolu mevcut değil: {path}")
+        return 0
+    
+    for dirpath, dirnames, filenames in os.walk(path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            if not os.path.islink(fp):
+                try:
+                    total_size += os.path.getsize(fp)
+                except OSError:
+                    pass
+    return total_size
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+fyrane_path = os.path.abspath(os.path.join(BASE_DIR, '..', '..'))
+
 @system_bp.route('/api/system/disks', methods=['GET'])
-def get_all_disks():
-    disk_info = []
+def get_project_disks_usage():
+    fyrane_folder_size = get_folder_size(fyrane_path)
 
-    partitions = psutil.disk_partitions(all=False)
-    for p in partitions:
-        try:
-            usage = psutil.disk_usage(p.mountpoint)
-            disk_info.append({
-                "device": p.device,
-                "mountpoint": p.mountpoint,
-                "fstype": p.fstype,
-                "total": usage.total,
-                "used": usage.used,
-                "free": usage.free
-            })
-        except PermissionError:
-            continue  
-
-    return jsonify(disk_info)
-
-@system_bp.route('/api/system/disks/total', methods=['GET'])
-def get_disk_totals():
-    import psutil
-
-    total = used = free = 0
-
-    partitions = psutil.disk_partitions(all=False)
-    seen = set()
-
-    for p in partitions:
-        if p.device in seen:
-            continue  
-        seen.add(p.device)
-
-        try:
-            usage = psutil.disk_usage(p.mountpoint)
-            total += usage.total
-            used += usage.used
-            free += usage.free
-        except PermissionError:
-            continue
+    total_used = fyrane_folder_size
+    total_free = MAX_DISK_CAPACITY_BYTES - total_used
+    total_free = max(total_free, 0)
 
     return jsonify({
-        "total": total,
-        "used": used,
-        "free": free
+        "max_capacity_bytes": MAX_DISK_CAPACITY_BYTES,
+        "used_bytes": total_used,
+        "free_bytes": total_free
     })
-
