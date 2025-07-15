@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from .diskstats import system_bp 
 
 
 db = SQLAlchemy()
@@ -24,6 +25,8 @@ def create_app():
 
     from .auth import auth_bp 
     app.register_blueprint(auth_bp) 
+    
+    app.register_blueprint(system_bp)
 
     @app.route('/')
     def home():

@@ -51,7 +51,7 @@ function CoreTest() {
                 setError(`Failed to fetch data: ${err.message}`);
                 setHttpStatusCode(err.response.status);
             } else {
-                setError(`Failed to fetch data: ${err.message}. Is Core server running?`);
+                setError(`${err.message}.`);
                 setHttpStatusCode(null);
             }
 
@@ -111,11 +111,11 @@ function CoreTest() {
     }, []);
 
     // Dynamically update browser tab title with status
-    useEffect(() => {
-        const statusEmoji = error ? '🔴' : '🟢';
-        const message = error ? '- Disconnected' : '- Connected';
-        document.title = `${statusEmoji} Fyrane API ${message}`;
-    }, [error]);
+    // useEffect(() => {
+    //    const statusEmoji = error ? '🔴' : '🟢';
+    //    const message = error ? '- Disconnected' : '- Connected';
+    //    document.title = `${statusEmoji} Fyrane API ${message}`;
+    //}, [error]);
 
     // Manual refresh handler
     const handleRefresh = () => {
@@ -124,50 +124,50 @@ function CoreTest() {
 
     // Visual class and label based on status
     const statusClass = error ? 'cust-core-status-error' : 'cust-core-status-success';
-    const statusText = error ? 'Connection Failed: ' : 'Succeeded: ';
+    const statusText = error ? '🔴 - Connection Failed: ' : '🟢 - Succeeded: ';
 
     return (
-        <div className='check-API'>
-            <div className={`cust-core-status-box ${statusClass}`}>
-                <p className="core-lead">
-                    <strong>{statusText}</strong>
-                    {error ? error : coreMessage}
-                </p>
+        <div className={`cust-core-status-box ${statusClass}`}>
+            <p className="core-lead">
+                <strong>{statusText}</strong>
+                {error ? error : coreMessage}
+            </p>
 
-                <table className="core-table">
-                    <tbody>
+            <table className="core-table">
+                <tbody>
+                    <tr>
+                        <td className="label">Endpoint:</td>
+                        <td>{endpoint}</td>
+                    </tr>
+                    <tr>
+                        <td className="label">Last Checked At:</td>
+                        <td>{lastCheckDateTime}</td>
+                    </tr>
+                    {httpStatusCode && (
                         <tr>
-                            <td className="label">Endpoint:</td>
-                            <td>{endpoint}</td>
+                            <td className="label">HTTP Status:</td>
+                            <td>{httpStatusCode} {httpStatusCode === 200 ? '(OK)' : ''}</td>
                         </tr>
+                    )}
+                    { /*responseTime !== null && (
                         <tr>
-                            <td className="label">Last Checked At:</td>
-                            <td>{lastCheckDateTime}</td>
+                            <td className="label">Response Time:</td>
+                            <td>{responseTime} ms</td>
                         </tr>
-                        {httpStatusCode && (
-                            <tr>
-                                <td className="label">HTTP Status:</td>
-                                <td>{httpStatusCode} {httpStatusCode === 200 ? '(OK)' : ''}</td>
-                            </tr>
-                        )}
-                        {responseTime !== null && (
-                            <tr>
-                                <td className="label">Response Time:</td>
-                                <td>{responseTime} ms</td>
-                            </tr>
-                        )}
-                        <tr>
-                            <td className="label">Next Check In:</td>
-                            <td>{Math.floor(countdown / 60)}m {countdown % 60}s</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    ) }
+                    <tr>
+                        <td className="label">Next Check In:</td>
+                        <td>{Math.floor(countdown / 60)}m {countdown % 60}s</td>
+                    </tr>
+                    */}
+                </tbody>
+            </table>
 
-                <button onClick={handleRefresh} className="cust-button">
-                    Refresh Now
-                </button>
-            </div>
+            <button onClick={handleRefresh} className="cust-button" id='refreshApiStat'> 
+                Refresh Now
+            </button>
         </div>
+
     );
 }
 

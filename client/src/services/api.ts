@@ -31,3 +31,9 @@ export const loginUser = async (loginData: any) => {
     throw error.response ? error.response.data : { message: 'Network error or unknown issue' }; 
   }
 };
+
+export const getDiskTotalStats = async () => {
+  const response = await fetch('http://127.0.0.1:5000/api/system/disks/total');
+  if (!response.ok) throw new Error('Failed to fetch disk total stats');
+  return response.json();
+};
