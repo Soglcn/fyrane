@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import CoreTest from '../components/CoreStatus';
+import RightPanel from '../components/RightPanel';
 import TotalDiskStats from '../components/TotalDiskStats';
 import RigelcoreLogo from '../assets/media/RigelcoreLogo-Colored.png';
 
@@ -72,6 +73,7 @@ function Dashboard() {
 
     return (
         <div className="dashboard-container">
+            <div><RightPanel /></div>
             {userRole === 'godmin' && (
                 <div className="dash-content">
                     <div className='greetings-dash'>
@@ -95,7 +97,10 @@ function Dashboard() {
                             <h3 className='element-title'> Disk Status</h3>
                             <TotalDiskStats />
                         </div>
-
+                        <div className='showDashElement'>
+                            <h3 className='element-title'> API Status</h3>
+                            <CoreTest />
+                        </div>
                     </div>
                 </div>
             )
@@ -110,7 +115,7 @@ function Dashboard() {
                 )
             }
 
-            <button onClick={handleLogout} className="cust-button" id='logoutbtn'>Logout</button>
+            {/*  <button onClick={handleLogout} className="cust-button" id='logoutbtn'>Logout</button> */}
             <div className='rigelArea'><img src={RigelcoreLogo} alt="FyraneCloud Logo" className="dashLogo" /></div>
 
         </div >
