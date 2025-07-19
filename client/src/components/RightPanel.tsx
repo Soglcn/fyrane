@@ -72,13 +72,15 @@ function RightPanel() {
       className={`right-panel ${expanded ? 'expanded' : ''}`}
     >
       <div
-        className="profile-panel"
+        className={`profile-panel ${buttonsExpanded ? 'active-bg' : ''}`}
         onClick={toggleExpand}
         style={{ cursor: 'pointer' }}
       >
+
         <div className="profile-title">
           <div className='show-pp'>
             <img className='user-pp' src={userpp} alt="User Profile" />
+            <span className="tooltip-text">Show profile</span>
           </div>
           <div className='show-un' onClick={toggleButtons} style={{ userSelect: 'none' }}>
             {username}{' '}
@@ -100,6 +102,7 @@ function RightPanel() {
       <div className={`profile-buttons ${buttonsExpanded ? 'expanded' : ''}`}>
         <button className="pr-button">Manage Users</button>
         <button className="pr-button">Tasks</button>
+        <button className="pr-button">Help</button>
         <button className="pr-button">Settings</button>
         <button onClick={handleLogout} className="pr-button" id="logout-btn">
           Logout
