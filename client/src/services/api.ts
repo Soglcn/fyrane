@@ -40,3 +40,14 @@ export const getDiskTotalStats = async () => {
     throw error;
   }
 };
+
+export const addUser = async (userData: any) => {
+  try {
+    const response = await apiClient.post('/api/users', userData);
+    return response.data;
+  } catch (error: any) {
+    console.error('Add user error:', error.response ? error.response.data : error.message);
+    throw error.response ? error.response.data : { message: 'Network or unknown error' };
+  }
+};
+
