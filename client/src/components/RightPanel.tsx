@@ -15,6 +15,11 @@ function RightPanel() {
   const panelRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+
+  const handleManageUsersClick = () => {
+    navigate('/AddUser');
+  };
+
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -100,7 +105,7 @@ function RightPanel() {
       </div>
 
       <div className={`profile-buttons ${buttonsExpanded ? 'expanded' : ''}`}>
-        <button className="pr-button">Manage Users</button>
+        <button onClick={handleManageUsersClick} className="pr-button">Manage Users</button>
         <button className="pr-button">Tasks</button>
         <button className="pr-button">Help</button>
         <button className="pr-button">Settings</button>

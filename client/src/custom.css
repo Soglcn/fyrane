@@ -28,14 +28,17 @@
     --error: #d63031;
     --highlight: #b78000;
 
-    --mega-gradient: linear-gradient(
-        135deg,
-        #356cb4, /* of-blue */
-        #2e3a94, /* of-darkblue */
-        #4d3592, /* of-purple */
-        #f47b2a /* of-orange */
+    --mega-gradient: linear-gradient(135deg,
+            #356cb4,
+            /* of-blue */
+            #2e3a94,
+            /* of-darkblue */
+            #4d3592,
+            /* of-purple */
+            #f47b2a
+            /* of-orange */
 
-      );
+        );
 }
 
 
@@ -704,7 +707,7 @@ body {
     border-top-right-radius: 25px;
 }
 
-.chat-tab:hover{
+.chat-tab:hover {
     background-color: var(--bg-light);
     color: var(--text-dark);
 }
@@ -717,13 +720,297 @@ body {
     transition: all 0.5s ease;
 }
 
-.chat-tab.active:hover{
+.chat-tab.active:hover {
     background-size: 100% 100%;
     color: var(--panel-light);
     font-weight: 200;
 }
 
 .notifications,
-.messages{
+.messages {
     padding: 15px;
+}
+
+/* ADD USER PAGE */
+
+/* Confirm Modal Stilleri */
+.confirm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.confirm-modal-content {
+    background-color: var(--panel-light);
+    /* Panel rengi */
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.confirm-modal-message {
+    font-size: 12pt;
+    font-weight: 100;
+    margin-bottom: 16px;
+    color: var(--text-dark);
+}
+
+.confirm-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.confirm-modal-button {
+    padding: 8px 16px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-weight: 500;
+}
+
+.confirm-modal-button:hover {
+    background-color: var(--of-darkblue);
+    color: var(--text-light);
+}
+
+.confirm-modal-cancel-button {
+    background-color: var(--line-light);
+    color: var(--text-dark);
+}
+
+.confirm-modal-cancel-button:hover {
+    background-color: var(--text-medium)
+}
+
+.confirm-modal-confirm-button {
+    background-color: var(--of-red);
+    /* Kırmızı renk */
+    color: var(--text-light);
+    /* Açık metin rengi */
+}
+
+.confirm-modal-confirm-button:hover {
+    background-color: var(--btn-bg)
+}
+
+
+.app-container {
+    display: flex;
+    width: 100vw;
+}
+
+.form-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-section {
+    margin-top: 5vh;
+    width: 35%;
+    height: 80vh;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.panel-title {
+    text-align: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg,
+            var(--of-blue) 0%,
+            var(--of-darkblue) 25%,
+            var(--of-purple) 50%,
+            var(--of-orange) 75%,
+            var(--of-red) 100%);
+    background-size: 250% 250%;
+
+    border-radius: 50px;
+    margin-top: 45px;
+    padding: 10px 35px 10px 35px;
+    width: 75%;
+
+}
+
+.form-group {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 25px;
+    margin-top: 10px;
+}
+
+.input-field {
+    padding: 10px 15px 10px 15px;
+    border-radius: 50px;
+    border: none;
+}
+
+.input-field:focus,
+.select-field:focus {
+    outline: none;
+
+}
+
+.select-field {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 50px;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.2rem;
+    padding: 10px 15px 10px 15px;
+    border: none;
+}
+
+.table-section {
+    width: 65%;
+    height: 80vh;
+    margin-top: 5vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+.table-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    margin-top: 5vh;
+    margin-right: 5%;
+    border: 1px solid var(--line-light);
+    overflow: hidden;
+    background-color: var(--panel-light);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    border-spacing: 0;
+
+}
+
+.table-header th {
+    background-color: var(--of-darkblue);
+    color: var(--text-light);
+    text-align: center;
+    padding: 15px 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table-row {
+    border-bottom: 1px solid var(--line-light);
+    transition: background-color 0.3s ease;
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.table-row:nth-child(even) {
+    background-color: rgba(178, 178, 178, 0.354)
+}
+
+.table-row:hover {
+    background-color: rgba(53, 108, 180, 0.1);
+}
+
+.table-cell {
+    padding: 12px 20px;
+    vertical-align: middle;
+    color: var(--text-dark);
+}
+
+.table-actions {
+    white-space: nowrap;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    color: var(--text-light);
+    width: 50%;
+}
+
+.btn-edit {
+    background-color: var(--of-blue);
+}
+
+.btn-edit:hover {
+    background-color: var(--panel-light);
+    color: var(--text-dark);
+}
+
+.btn-delete {
+    background-color: var(--of-red);
+}
+
+.btn-delete:hover {
+    background-color: var(--panel-light);
+    color: var(--text-dark);
+}
+
+.btn:disabled {
+    background-color: var(--text-medium);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.text-center {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-medium);
+    padding: 20px;
+}
+
+.table-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-section::-webkit-scrollbar-track {
+    background: var(--panel-light);
+    border-radius: 10px;
+}
+
+.table-section::-webkit-scrollbar-thumb {
+    background: var(--of-blue);
+    border-radius: 10px;
+}
+
+.table-section::-webkit-scrollbar-thumb:hover {
+    background: var(--of-darkblue);
 }

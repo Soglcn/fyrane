@@ -6,6 +6,7 @@ import HomePage from './pages/Home';
 import CoreTest from './components/CoreStatus';
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard';
+import AddUser from './pages/AddUser';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/APIStatus" element={<CoreTest/>} />
         <Route path="/Login" element={<Login/>} />
         <Route path="/Dashboard" element={<Dashboard/>} />
+        <Route path="/AddUser" element={<AddUser/>} />
       </Routes>
     </Router>
   );

@@ -32,5 +32,9 @@ def create_app():
     @app.route('/api/users')
     def get_users():
         return jsonify({"message": "User added!"})
+    
+    @app.route('/api/users/<user_id>', methods=['DELETE'])
+    def delete_user(user_id):
+        return jsonify({'message': f'User {user_id} deleted successfully'}), 200
 
     return app
