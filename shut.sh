@@ -1,42 +1,51 @@
 #!/bin/bash
 
-# Script'in çalıştığı dizini al
 BASEDIR=$(dirname "$(realpath "$0")")
 
 echo "🚀 Stopping core and client processes..."
 
-# Core ve client process PID'lerini bulup SIGINT at
-pkill -f "python3 run.py"   # core backend
-pkill -f "npm run dev"      # client frontend
+# Python backend kill
+PY_PID=$(pgrep -f "python3 run.py")
+if [ -n "$PY_PID" ]; then
+  kill -SIGINT $PY_PID
+  echo "🐍 Python backend stopped (PID $PY_PID)."
+else
+  echo "🐍 Python backend process not found."
+fi
 
-sleep 2
+# Client kill
+CLIENT_PID=$(pgrep -f "npm run dev")
+if [ -n "$CLIENT_PID" ]; then
+  kill -SIGINT $CLIENT_PID
+  echo "💻 Client stopped (PID $CLIENT_PID)."
+else
+  echo "💻 Client process not found."
+fi
 
-echo "💾 Gopying files to GIT..."
+sleep 3
+
+echo "💾 Committing to GIT..."
 
 cd "$BASEDIR"
 
-# Git add, commit ve push
 DATE=$(date '+%Y-%m-%d_%H-%M-%S')
 git add .
-git commit -m "Last_Save: $DATE"
-
-# Eğer commit atılacak dosya yoksa hata verir, bu normal
+git commit -m "LastOneAt: $DATE"
 git push -u origin main
 
 echo -e "\033[1;31m👹 I AM KILLING THE TERMINALS!!! 👹\033[0m"
 
-# Terminal pencerelerindeki shell'leri onay sormadan exit ile kapatıp Terminal'i kapatıyoruz
 osascript <<EOF
 tell application "Terminal"
-    repeat with w in windows
-        repeat with t in tabs of w
-            try
-                do script "exit" in t
-            end try
-        end repeat
+  repeat with w in windows
+    repeat with t in tabs of w
+      try
+        do script "exit" in t
+      end try
     end repeat
-    delay 2
-    quit
+  end repeat
+  delay 2
+  quit
 end tell
 EOF
 
@@ -57,5 +66,3 @@ EOF
 echo -e "\033[0m"
 
 echo -e "Have a good day Oggy!"
-
-killall Terminal
