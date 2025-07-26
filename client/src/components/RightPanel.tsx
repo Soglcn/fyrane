@@ -18,6 +18,7 @@ function RightPanel() {
 
   const handleManageUsersClick = () => {
     navigate('/AddUser');
+    document.title = "Manage C&U";
   };
 
   useEffect(() => {

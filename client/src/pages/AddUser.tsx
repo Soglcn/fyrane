@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { addUser, getAllUsers, deleteUser, editUser } from '../services/api';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+
 
 interface FormData {
   company_id: string;
@@ -12,6 +13,7 @@ interface FormData {
   role: string;
   profession: string;
 }
+
 
 interface User {
   _id: string;
@@ -261,18 +263,39 @@ const App: React.FC = () => {
     });
   };
 
+  const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const panel = e.currentTarget.closest('.form-section') as HTMLElement;
+    if (panel) panel.style.display = 'none';
+  };
+
+  const showAup = () => {
+    const panel = document.querySelector('.form-section') as HTMLElement;
+    if (panel) panel.style.display = 'flex';
+  };
+
+
   useEffect(() => {
     fetchUsers();
   }, []);
 
+
   return (
     <div className="app-container">
+      <div className="add-user-sidebar">
+        <button className="aus-btn" id="go-back" onClick={() => navigate('/dashboard')}>
+          <i className="fa-solid fa-arrow-left"></i>
+        </button>
+        <button className="aus-btn" id='the-marginer'><i className="fa-solid fa-address-card"></i> Add Company</button>
+        <button onClick={showAup} className="aus-btn"><i className="fa-solid fa-user-plus"></i>Add User</button>
+      </div>
+
       <div className="form-section">
-        <h2 className="panel-title">Add New User</h2>
         {error && <p className="message error-message">{error}</p>}
         {success && <p className="message success-message">{success}</p>}
 
         <form onSubmit={handleSubmit} className="form-grid">
+          <h2 className="panel-title">Add New User</h2>
+          <button onClick={handleClose} className="close-form">×</button>
           <div className="form-group">
             <label htmlFor="company_id" className="form-label">Company ID:</label>
             <input
@@ -400,6 +423,8 @@ const App: React.FC = () => {
                   <th>Company ID</th>
                   <th>Username</th>
                   <th>Full Name</th>
+                  <th>E-Mail</th>
+                  <th>Phone</th>
                   <th>Role</th>
                   <th>Profession</th>
                   <th>Actions</th>
@@ -411,6 +436,8 @@ const App: React.FC = () => {
                     <td className="table-cell">{user.company_id}</td>
                     <td className="table-cell">{user.username}</td>
                     <td className="table-cell">{user.fullname}</td>
+                    <td className="table-cell">{user.email}</td>
+                    <td className="table-cell">{user.phone}</td>
                     <td className="table-cell">{user.role}</td>
                     <td className="table-cell">{user.profession}</td>
                     <td className="table-cell table-actions">
