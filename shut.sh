@@ -23,9 +23,12 @@ git push -u origin main
 
 echo -e "\033[1;31m👹 I AM KILLING THE TERMINALS!!! 👹\033[0m"
 
-
+# Terminal pencerelerini onay sormadan kapatıp Terminal app’i kapatıyoruz
 osascript <<EOF
 tell application "Terminal"
+    repeat with w in windows
+        close w saving no
+    end repeat
     quit
 end tell
 EOF
