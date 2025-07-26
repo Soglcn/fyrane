@@ -57,3 +57,5 @@ EOF
 echo -e "\033[0m"
 
 echo -e "Have a good day Oggy!"
+
+killall Terminal
