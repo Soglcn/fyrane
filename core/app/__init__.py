@@ -3,6 +3,9 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from .extensions import db, bcrypt
 
+
+#users?
+
 def create_app():
     app = Flask(__name__)
     CORS(app)
