@@ -18,6 +18,12 @@ EOF
 echo -e "\033[0m"
 
 echo -e "\n Welcome to Rigelcore Dev Terminal Oggy!"
+
+# Repo güncelle
+echo -e "🔄 Pulling latest changes from main branch..."
+cd "$(pwd)"
+git pull origin main
+
 echo -e "💡 Starting Fyrane system..."
 
 # Core terminali aç
