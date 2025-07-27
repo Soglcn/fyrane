@@ -282,12 +282,24 @@ const App: React.FC = () => {
   return (
     <div className="app-container">
       <div className="add-user-sidebar">
-        <button className="aus-btn" id="go-back" onClick={() => navigate('/dashboard')}>
-          <i className="fa-solid fa-arrow-left"></i>
-        </button>
-        <button className="aus-btn" id='the-marginer'><i className="fa-solid fa-address-card"></i> Add Company</button>
-        <button onClick={showAup} className="aus-btn"><i className="fa-solid fa-user-plus"></i>Add User</button>
+        <div className="left-area">
+          <button className="aus-btn" id="go-back" onClick={() => navigate('/dashboard')}>
+            <i className="fa-solid fa-arrow-left"></i>
+          </button>
+        </div>
+
+        <div className="center-area">
+          <button className="aus-btn">
+            <i className="fa-solid fa-address-card"></i>&nbsp;Add Company
+          </button>
+          <button onClick={showAup} className="aus-btn">
+            <i className="fa-solid fa-user-plus"></i>&nbsp;Add User
+          </button>
+        </div>
+
+        <div className="right-area"></div> 
       </div>
+
 
       <div className="form-section">
         {error && <p className="message error-message">{error}</p>}
@@ -467,9 +479,9 @@ const App: React.FC = () => {
       {editingUser && (
         <div className="modal-overlay">
           <div className="modal-content panel">
+            <form onSubmit={handleUpdateUser} className="form-grid">
             <h2 className="modal-title panel-title">Edit User: {editingUser.fullname}</h2>
             {error && <p className="message error-message">{error}</p>}
-            <form onSubmit={handleUpdateUser} className="form-grid">
               <div className="form-group">
                 <label htmlFor="edit_company_id" className="form-label">Company ID:</label>
                 <input

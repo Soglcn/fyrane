@@ -813,15 +813,44 @@ body {
     height: 50px;
     display: flex;
     align-items: center;
-    justify-items: center;
+    justify-content: space-between;
     background-color: var(--panel-light);
     box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.25);
+    padding: 0 10px 0 5px;
+    /* SAĞ 10px, SOL 5px → Geri buton köşeye yakın */
+}
+
+.left-area,
+.center-area,
+.right-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.left-area {
+    justify-content: flex-start;
+    padding-left: 2px;
+    /* ekstra yaklaştırma */
+}
+
+.center-area {
+    justify-content: center;
+    gap: 12px;
+}
+
+.right-area {
+    justify-content: flex-end;
 }
 
 .aus-btn {
-    width: 150px;
+    min-width: 150px;
     height: 40px;
-    margin-left: 15px;
+    border-radius: 50px;
+    border: none;
+    font-size: 10pt;
+    font-weight: 200;
+    color: var(--text-light);
     padding: 5px 15px;
     background: linear-gradient(135deg,
             var(--of-blue) 0%,
@@ -830,50 +859,48 @@ body {
             var(--of-orange) 75%,
             var(--of-red) 100%);
     background-size: 250% 250%;
-    border: none;
-    border-radius: 50px;
-    font-size: 10pt;
-    color: var(--text-light);
     transition: all 0.5s ease;
-    font-weight: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .aus-btn:hover {
-    background: linear-gradient(135deg,
-            var(--of-blue) 0%,
-            var(--of-darkblue) 25%,
-            var(--of-purple) 50%,
-            var(--of-orange) 75%,
-            var(--of-red) 100%);
     background-size: 150% 150%;
-    color: var(--text-light);
+    filter: brightness(1.1);
 }
-#go-back{
-    width: auto;
+
+#go-back {
+    min-width: unset;
     background: none;
     color: var(--text-dark);
     font-size: 15pt;
+    padding: 0 5px;
+    transition: transform 0.2s ease;
 }
-#the-marginer {
-    margin-left: 40vw;
+
+#go-back:hover {
+    transform: translateX(-2px);
+    /* ← Geri çekilme efekti */
 }
+
 
 /* */
 
 .form-grid {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     width: 60vw;
     background-color: var(--bg-light);
-    padding: 3% 10%;
+    padding: 3% 5%;
     border-radius: 50px;
     box-shadow: 0 0 15px 2px rgba(255, 100, 100, 0.3);
 }
 
 
 .form-section {
-    position: fixed;
     z-index: 9999;
     background-color: rgba(20, 20, 20, 0.895);
     width: 100vw;
@@ -882,7 +909,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: fixed;
 }
+
 
 .form-actions {
     display: flex;
@@ -898,21 +927,28 @@ body {
     font-weight: 600;
 }
 
+
 .close-form {
     position: absolute;
-    right: 22vw;
-    top: 17vh;
-    display: block;
-    width: 25px;
-    grid-column: span 2;
-    margin-bottom: 5%;
+    top: 25px;
+    right: 25px;
+    width: 32px;
+    height: 32px;
+    font-size: 20pt;
+    line-height: 28px;
+    text-align: center;
     border: none;
-    font-size: 25pt;
-    transition: all 0.5s ease;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
 }
 
 .close-form:hover {
     color: var(--of-red);
+    transform: rotate(-5deg) scale(1.1);
 }
 
 .form-actions .btn-primary {
@@ -952,10 +988,7 @@ body {
     background-color: var(--panel-light);
 }
 
-.input-field:focus,
-.select-field:focus {
-    outline: none;
-}
+
 
 .select-field {
     appearance: none;
@@ -1102,4 +1135,43 @@ body {
 
 .table-section::-webkit-scrollbar-thumb:hover {
     background: var(--of-darkblue);
+}
+
+.modal-overlay {
+    z-index: 9999;
+    background-color: rgba(20, 20, 20, 0.895);
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+}
+
+.modal-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10vh;
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-cancel {
+    background: linear-gradient(135deg,
+            var(--error) 0%,
+            var(--of-red) 100%);
+    background-size: 250% 250%;
+    font-size: 12pt;
+    font-weight: 200;
+    border-radius: 50px;
+    margin-top: 45px;
+    padding: 10px 5px 10px 5px;
+    margin-right: 2rem;
+    width: 25%;
+    transition: all 0.5s ease;
 }
